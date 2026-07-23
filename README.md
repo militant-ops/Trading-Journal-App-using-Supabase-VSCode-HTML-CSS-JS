@@ -1,4 +1,4 @@
-# Trading-Journal-App-using-Supabase-HTML-CSS-JS
+# Trading-Journal-App-using-Supabase-VSCode-HTML-CSS-JS
 
 ## 📌 Overview
 
