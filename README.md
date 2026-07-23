@@ -100,6 +100,30 @@ Supabase SQL Editor
 
 <img width="1628" height="908" alt="image" src="https://github.com/user-attachments/assets/f5d05f5a-fd91-4b83-b539-e570439e140b" />
 
+## Example: JavaScript Rendering Function
+
+Since not every part of the logic has a matching screenshot, here's a real example of one of the core rendering functions used to build the dashboard view:
+
+function dashSetMode(mode){
+  // Updates the active dashboard mode (e.g. Live / Backtest / All)
+  // and re-renders the dashboard and heatmap to reflect the change
+  syncDashButtons();
+  renderDash();
+  renderDashHeatmap();
+}
+
+## Example: Supabase Request Helper
+
+// Builds the request to Supabase's REST API using the project URL and anon key
+const url = 'https://<project-ref>.supabase.co/rest/v1/' + path;
+const headers = {
+  'Content-Type': 'application/json',
+  'apikey': AKEY,
+  'Authorization': 'Bearer ' + AKEY,
+  'Prefer': 'return=representation'
+};
+
+(Actual project URL and API key have been removed from this example for security.)
 
 ## 📊 Key Analysis
 
@@ -107,29 +131,30 @@ The journal is built to answer questions like: How is each strategy performing i
 
 ## 📊 Data Structure
 
-Trades are logged with full context — pair, session, strategy, entry/exit details, R:R outcome, and notes — with support for both live and backtested trades, kept strategy-isolated so results don't blend across different systems.
+Trades are logged with full context — pair, session, strategy, entry/exit details, R:R outcome, and notes — with support for both live and backtested trades, kept strategy-isolated so results don't blend across different systems. The schema was defined directly in Supabase's SQL Editor before any front-end work connected to it.
 
 ## 💡 Key Features
-Dashboard with equity curve, win rate, and net R:R at a glance
-Logbook for detailed trade-by-trade entries with screenshots
-Calendar/heatmap view to spot performance patterns by day
-Monthly & weekly breakdowns with editable summaries
-Live stats view separate from backtesting data
-Multi-strategy support (Engulfing, ZM DR/IDR, New Engulfing, Mido Main)
 
+- Dashboard with equity curve, win rate, and net R:R at a glance
+- Logbook for detailed trade-by-trade entries with screenshots
+- Calendar/heatmap view to spot performance patterns by day
+- Monthly & weekly breakdowns with editable summaries
+- Live stats view separate from backtesting data
+- Multi-strategy support (Engulfing, ZM DR/IDR, New Engulfing, Mido Main)
+  
 ## 📂 Data
 
 Trade data is stored in Supabase, covering entry/exit details, strategy tags, sessions, pairs, R:R outcomes, and trade screenshots. Credentials are not included in this repo.
 
 ## 🚀 Skills Demonstrated
 
-This project demonstrates my ability to: design and build a functional full-stack tool from scratch, structure and manage real data through a live database, translate raw trade data into clear performance metrics, and build a system tailored to my own workflow rather than relying on off-the-shelf tools.
+This project demonstrates my ability to: design and build a functional full-stack tool from scratch, write and structure real JavaScript logic rather than relying on templates, design a database schema and connect it to a live front end, and build a system tailored to my own workflow rather than using off-the-shelf tools.
 
 ## 🚀 Future Improvements
 
 Potential improvements to this project include:
 
-Adding deeper statistical breakdowns (e.g. performance by session, by day of week)
-Building automated reporting/export features
-Introducing authentication for secure multi-device access
-Expanding analysis to compare strategies head-to-head over time
+- Adding deeper statistical breakdowns (e.g. performance by day of week)
+- Building automated reporting/export features
+- Introducing authentication for secure multi-device access
+- Expanding analysis to compare strategies head-to-head over time
