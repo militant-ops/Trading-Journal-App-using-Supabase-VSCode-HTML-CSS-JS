@@ -1,10 +1,10 @@
 # Trading-Journal-App-using-Supabase-VSCode-HTML-CSS-JS
 
-## 📌 Overview
+## Overview
 
 This project is a custom-built trading journal application I designed and built to track and analyze my forex trading performance across multiple strategies. It's a single-file HTML, CSS, and JavaScript application connected to a Supabase backend, which handles persistent, cloud-synced storage for every trade I log. The goal was to move away from generic spreadsheet journals and build something tailored exactly to how I trade — strategy-isolated data, session/pair breakdowns, and visual performance tracking in one place.
 
-## 🎯 Objectives
+## Objectives
 
 - Track every trade with full detail across multiple strategies (Engulfing, ZM DR/IDR, New Engulfing, Mido Main)
 - Monitor performance metrics like win rate, net R:R, and account growth over time
@@ -12,14 +12,14 @@ This project is a custom-built trading journal application I designed and built 
 - Keep each strategy's data isolated so results don't blend together and skew analysis
 - Build a system I could keep expanding as my trading evolves
 
-## 🛠️ Tools & Programs Used
+## Tools & Programs Used
 
 - Visual Studio Code (VS Code) — the code editor used to write and edit the HTML, CSS, and JavaScript
 - VS Code Live Server extension — used to run the app locally in the browser with live reload while building
 - Supabase — backend-as-a-service used for the database (Postgres), REST API, and file storage (trade screenshots)
 - Supabase SQL Editor — used to write and run the SQL that created the database schema
 
-## 🧩 How It Was Built
+## How It Was Built
 
 ### 1. Planning the structure Before writing any code, I mapped out what the journal needed
 
@@ -59,7 +59,7 @@ The JavaScript is plain (vanilla) JS — no frameworks or build tools. It's orga
 
 AI assistance (Claude) was used to help design the architecture, write and debug the JavaScript, and refine the UI — while I fully directed the feature set, data structure, and design decisions based on my own trading workflow.
 
-## 🖼️ Screenshots
+## Screenshots
 
 ### App Previews:
 
@@ -120,15 +120,15 @@ const headers = {
 
 (Actual project URL and API key have been removed from this example for security.)
 
-## 📊 Key Analysis
+## Key Analysis
 
 The journal is built to answer questions like: How is each strategy performing individually? What's my win rate and net R:R by month, week, and session? How consistent is my execution across different pairs? Where are the patterns in my wins vs. losses?
 
-## 📊 Data Structure
+## Data Structure
 
 Trades are logged with full context — pair, session, strategy, entry/exit details, R:R outcome, and notes — with support for both live and backtested trades, kept strategy-isolated so results don't blend across different systems. The schema was defined directly in Supabase's SQL Editor before any front-end work connected to it.
 
-## 💡 Key Features
+## Key Features
 
 - Dashboard with equity curve, win rate, and net R:R at a glance
 - Logbook for detailed trade-by-trade entries with screenshots
@@ -137,15 +137,15 @@ Trades are logged with full context — pair, session, strategy, entry/exit deta
 - Live stats view separate from backtesting data
 - Multi-strategy support (Engulfing, ZM DR/IDR, New Engulfing, Mido Main)
   
-## 📂 Data
+## Data
 
 Trade data is stored in Supabase, covering entry/exit details, strategy tags, sessions, pairs, R:R outcomes, and trade screenshots. Credentials are not included in this repo.
 
-## 🚀 Skills Demonstrated
+## Skills Demonstrated
 
 This project demonstrates my ability to: design and build a functional full-stack tool from scratch, write and structure real JavaScript logic rather than relying on templates, design a database schema and connect it to a live front end, and build a system tailored to my own workflow rather than using off-the-shelf tools.
 
-## 🚀 Future Improvements
+## Future Improvements
 
 Potential improvements to this project include:
 
