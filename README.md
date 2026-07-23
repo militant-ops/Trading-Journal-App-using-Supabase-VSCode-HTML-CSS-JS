@@ -16,7 +16,6 @@ This project is a custom-built trading journal application I designed and built 
 
 - Visual Studio Code (VS Code) — the code editor used to write and edit the HTML, CSS, and JavaScript
 - VS Code Live Server extension — used to run the app locally in the browser with live reload while building
-- Google Chrome DevTools — used to debug JavaScript (Console tab) and inspect live network requests to Supabase (Network tab)
 - Supabase — backend-as-a-service used for the database (Postgres), REST API, and file storage (trade screenshots)
 - Supabase SQL Editor — used to write and run the SQL that created the database schema
 
@@ -56,11 +55,7 @@ The JavaScript is plain (vanilla) JS — no frameworks or build tools. It's orga
   
 - Navigation (goPage(id)) — swaps between the Dashboard, Logbook, Calendar, and other views by toggling which container is visible, acting as a lightweight single-page app without a router library
 
-### 7. Testing and debugging While building:
-
-I used Chrome DevTools — the Console tab to catch JavaScript errors, and the Network tab to confirm requests to Supabase were firing correctly and returning the right data (status 200 responses).
-
-### 8. Version control and hosting the project
+### 8. Version control
 
 AI assistance (Claude) was used to help design the architecture, write and debug the JavaScript, and refine the UI — while I fully directed the feature set, data structure, and design decisions based on my own trading workflow.
 
