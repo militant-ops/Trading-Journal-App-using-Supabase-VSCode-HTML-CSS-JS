@@ -39,23 +39,19 @@ Live Stats View
 
 <img width="1637" height="975" alt="image" src="https://github.com/user-attachments/assets/d0ce8faf-e20d-46f0-9cce-3087dda5bb33" />
 
-### Code Preview:
+### Code Previews:
 
 Editor / File Structure
 
-<!-- paste code editor screenshot here -->
+<img width="1710" height="1073" alt="image" src="https://github.com/user-attachments/assets/5454b958-6114-46d9-a7d1-dd0f8978e6d3" />
 
-Design System (CSS Variables)
-
-<!-- paste CSS variables screenshot here -->
-
-Live Run / Connected to Supabase
-
-<!-- paste terminal or dev tools screenshot here -->
+Used VS Code to write the code and edit and mark out the file structure.
 
 Supabase SQL Editor
 
-<!-- paste SQL editor screenshot here -->
+<img width="1628" height="908" alt="image" src="https://github.com/user-attachments/assets/f5d05f5a-fd91-4b83-b539-e570439e140b" />
+
+
 ## 📊 Key Analysis
 
 The journal is built to answer questions like: How is each strategy performing individually? What's my win rate and net R:R by month, week, and session? How consistent is my execution across different pairs? Where are the patterns in my wins vs. losses?
