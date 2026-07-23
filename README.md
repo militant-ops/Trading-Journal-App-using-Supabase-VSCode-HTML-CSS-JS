@@ -2,19 +2,68 @@
 
 ## 📌 Overview
 
-This project is a custom-built trading journal application designed to track and analyze my forex trading performance across multiple strategies. It's a single-file HTML/CSS/JS app connected to a Supabase backend for persistent, cloud-synced storage, allowing me to log trades, review performance, and refine my strategy execution over time.
+This project is a custom-built trading journal application I designed and built to track and analyze my forex trading performance across multiple strategies. It's a single-file HTML, CSS, and JavaScript application connected to a Supabase backend, which handles persistent, cloud-synced storage for every trade I log. The goal was to move away from generic spreadsheet journals and build something tailored exactly to how I trade — strategy-isolated data, session/pair breakdowns, and visual performance tracking in one place.
 
 ## 🎯 Objectives
 
-Track every trade with full detail across multiple strategies, monitor performance metrics like win rate, R:R, and growth over time, identify strengths and weaknesses in execution across different pairs and sessions, build a system that isolates data per strategy for cleaner analysis, and create a foundation I can keep expanding as my trading evolves.
+- Track every trade with full detail across multiple strategies (Engulfing, ZM DR/IDR, New Engulfing, Mido Main)
+- Monitor performance metrics like win rate, net R:R, and account growth over time
+- Identify strengths and weaknesses in execution across different pairs and trading sessions
+- Keep each strategy's data isolated so results don't blend together and skew analysis
+- Build a system I could keep expanding as my trading evolves
 
-## 🛠️ Tools & Skills
+## 🛠️ Tools & Programs Used
 
-HTML/CSS/JavaScript · Supabase (backend & storage) · UI/UX Design · Data Visualization · Front-End Development · Trading Strategy Analysis
+- Visual Studio Code (VS Code) — the code editor used to write and edit the HTML, CSS, and JavaScript
+- VS Code Live Server extension — used to run the app locally in the browser with live reload while building
+- Google Chrome DevTools — used to debug JavaScript (Console tab) and inspect live network requests to Supabase (Network tab)
+- Supabase — backend-as-a-service used for the database (Postgres), REST API, and file storage (trade screenshots)
+- Supabase SQL Editor — used to write and run the SQL that created the database schema
+- GitHub — used to host the project and version the code
 
 ## 🧩 How It Was Built
 
-Built as a single-file HTML, CSS, and JavaScript application — no frameworks — with a Supabase backend handling data storage, API calls, and image storage for trade screenshots. I used the Supabase SQL Editor to design and set up the database schema directly — creating the tables for trades and summaries, defining column types, and running the setup scripts that structure how trade data is stored. I used AI-assisted development (working with Claude) to help design the architecture, write and debug the JavaScript logic, and refine the UI, while I directed the feature set, data structure, and design decisions based on my own trading workflow.
+### 1. Planning the structure Before writing any code, I mapped out what the journal needed
+
+a dashboard, a logbook, a calendar/heatmap view, monthly breakdowns, and a trade entry form — all pulling from the same underlying trade data but presented differently.
+
+### 3. Setting up the editor
+
+I used VS Code as my code editor. I opened the project as a folder (File → Open Folder) so I could use the Live Server extension, which lets the HTML file run in the browser and auto-refresh every time I saved a change — this made it possible to see UI changes instantly instead of manually reloading.
+
+### 4. Writing the front end (HTML/CSS)
+
+The entire interface is built in one HTML file. The <style> block at the top defines a design system using CSS variables (a :root { --bg: ...; --accent: ...; } block) for colors, spacing, and theming, so the whole app's look is controlled from one place instead of repeating values everywhere. The HTML body defines the sidebar navigation, the dashboard panels, the logbook table, and the trade entry modal — all as one page, with JavaScript controlling which section is visible at any time.
+
+### 7. Building the database in Supabase
+
+I created a free Supabase project, then used the SQL Editor inside the Supabase dashboard to write CREATE TABLE statements defining the schema — tables for trades and summaries, with columns for pair, session, strategy, entry/exit details, R:R outcome, and notes. Supabase automatically turns these tables into a REST API, and generates a project URL and an API (anon) key used to authenticate requests from the app.
+
+### 8. Connecting the front end to Supabase In the JavaScript
+
+I wrote small helper functions that build the request URL (project URL + table name), attach the required headers (apikey, Authorization: Bearer <key>, Content-Type), and use fetch() to send GET/POST/PATCH/DELETE requests. Every part of the app that needs data — the dashboard, the logbook, the calendar — goes through these same helper functions rather than writing a new fetch call each time.
+
+### 9. Writing the JavaScript logic
+
+The JavaScript is plain (vanilla) JS — no frameworks or build tools. It's organized into a few clear categories of functions:
+
+- Rendering functions (renderDash(), renderSummaryEditor(), renderContextTagOptions()) — pull trade data and rebuild the relevant part of the page
+
+- Interaction handlers (setDirection(), toggleStrategyPanel(), selectStrategy(), dashSetMode(), dashNav()) — respond to clicks/toggles, update state, then call the render functions again to reflect the change
+  
+- Date/formatting utilities (dayAbbr(), fmtDate(), weekOfMonth(), isValidTradeDate()) — keep date handling and display consistent across every view instead of repeating logic
+  
+- Modal/form logic (openTradeModal(tid)) — opens the trade entry form, pre-filling it with existing data if editing a trade, or opening blank for a new one; also handles attaching trade screenshots and chart links
+  
+- Navigation (goPage(id)) — swaps between the Dashboard, Logbook, Calendar, and other views by toggling which container is visible, acting as a lightweight single-page app without a router library
+
+### 7. Testing and debugging While building:
+
+I used Chrome DevTools — the Console tab to catch JavaScript errors, and the Network tab to confirm requests to Supabase were firing correctly and returning the right data (status 200 responses).
+
+### 8. Version control and hosting the project
+
+AI assistance (Claude) was used to help design the architecture, write and debug the JavaScript, and refine the UI — while I fully directed the feature set, data structure, and design decisions based on my own trading workflow.
 
 ## 🖼️ Screenshots
 
