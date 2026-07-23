@@ -88,8 +88,6 @@ Editor / File Structure
 
 <img width="1710" height="1073" alt="image" src="https://github.com/user-attachments/assets/5454b958-6114-46d9-a7d1-dd0f8978e6d3" />
 
-Used VS Code to write the code and edit and mark out the file structure.
-
 Supabase SQL Editor
 
 <img width="1628" height="908" alt="image" src="https://github.com/user-attachments/assets/f5d05f5a-fd91-4b83-b539-e570439e140b" />
