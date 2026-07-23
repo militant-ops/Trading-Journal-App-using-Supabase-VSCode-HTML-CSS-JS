@@ -17,32 +17,29 @@ HTML/CSS/JavaScript · Supabase (backend & storage) · UI/UX Design · Data Visu
 Built as a single-file HTML, CSS, and JavaScript application — no frameworks — with a Supabase backend handling data storage, API calls, and image storage for trade screenshots. I used the Supabase SQL Editor to design and set up the database schema directly — creating the tables for trades and summaries, defining column types, and running the setup scripts that structure how trade data is stored. I used AI-assisted development (working with Claude) to help design the architecture, write and debug the JavaScript logic, and refine the UI, while I directed the feature set, data structure, and design decisions based on my own trading workflow.
 
 ## 🖼️ Screenshots
-App Preview
+
+### App Previews:
 
 Dashboard
 
-<!-- paste dashboard screenshot here -->
+<img width="1633" height="977" alt="image" src="https://github.com/user-attachments/assets/64b926f3-810e-4bab-bd0f-fbd7dca5e7fe" />
+
 
 Logbook
 
-<!-- paste logbook screenshot here -->
+<img width="1639" height="963" alt="image" src="https://github.com/user-attachments/assets/5b2dc7f1-61a0-40d1-a73f-84ce63f60f59" />
+
 
 Calendar / Heatmap View
 
-<!-- paste calendar/heatmap screenshot here -->
+<img width="1620" height="714" alt="image" src="https://github.com/user-attachments/assets/86827775-6300-4cfe-93fb-ab986359b2dc" />
 
-Monthly Breakdown
-
-<!-- paste monthly breakdown screenshot here -->
-
-Trade Entry Modal
-
-<!-- paste trade modal screenshot here -->
 
 Live Stats View
 
-<!-- paste live stats screenshot here -->
-Code Preview
+<img width="1637" height="975" alt="image" src="https://github.com/user-attachments/assets/d0ce8faf-e20d-46f0-9cce-3087dda5bb33" />
+
+### Code Preview:
 
 Editor / File Structure
 
