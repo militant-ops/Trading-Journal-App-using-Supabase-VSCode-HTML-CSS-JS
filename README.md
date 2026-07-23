@@ -19,7 +19,6 @@ This project is a custom-built trading journal application I designed and built 
 - Google Chrome DevTools — used to debug JavaScript (Console tab) and inspect live network requests to Supabase (Network tab)
 - Supabase — backend-as-a-service used for the database (Postgres), REST API, and file storage (trade screenshots)
 - Supabase SQL Editor — used to write and run the SQL that created the database schema
-- GitHub — used to host the project and version the code
 
 ## 🧩 How It Was Built
 
