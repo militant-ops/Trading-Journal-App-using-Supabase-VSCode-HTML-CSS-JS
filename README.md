@@ -98,7 +98,9 @@ Since not every part of the logic has a matching screenshot, here's a real examp
 
 function dashSetMode(mode){
   // Updates the active dashboard mode (e.g. Live / Backtest / All)
+  
   // and re-renders the dashboard and heatmap to reflect the change
+  
   syncDashButtons();
   renderDash();
   renderDashHeatmap();
@@ -107,6 +109,7 @@ function dashSetMode(mode){
 ## Example: Supabase Request Helper
 
 // Builds the request to Supabase's REST API using the project URL and anon key
+
 const url = 'https://<project-ref>.supabase.co/rest/v1/' + path;
 const headers = {
   'Content-Type': 'application/json',
