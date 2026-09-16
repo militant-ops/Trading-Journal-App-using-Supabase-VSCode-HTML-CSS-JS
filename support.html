@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Support — MB Trade Lab</title>
+<meta name="description" content="Frequently asked questions and contact form for MB Trade Lab, a personal trading journal for forex, metals, and indices traders.">
+<link rel="icon" type="image/png" href="mb-logo.png">
+<style>
+:root{
+  --bg:#060608;--bg2:#0E0E12;--panel:#121218;--panel2:#181820;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --cr:#D93025;--cr3:#FF4444;--gn3:#00D26A;
+  --wh:#F5F5F7;--wh2:#A0A0B0;--wh3:#50506A;
+  --sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --r:8px;--r2:12px;--glow-red:rgba(217,48,37,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--wh);line-height:1.6}
+a{color:var(--cr3)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:800px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.brand img{height:28px}
+.back{color:var(--wh2);font-size:13px}
+.wrap{max-width:720px;margin:0 auto;padding:20px 24px 100px}
+h1{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.sub{color:var(--wh3);font-size:14px;margin-bottom:36px}
+
+.faq-item{border-bottom:1px solid var(--border);padding:18px 0}
+.faq-item summary{cursor:pointer;font-size:15px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .chev{color:var(--wh3);transition:transform .15s;flex-shrink:0}
+.faq-item[open] summary .chev{transform:rotate(45deg)}
+.faq-item p{color:var(--wh2);font-size:14px;margin-top:10px;max-width:62ch}
+
+.contact{margin-top:56px;padding-top:36px;border-top:1px solid var(--border)}
+.contact h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.contact .sub{margin-bottom:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;color:var(--wh2);margin-bottom:6px}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--panel);border:1px solid var(--border2);border-radius:var(--r);
+  color:var(--wh);font-family:var(--sans);font-size:14px;padding:11px 12px;
+}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--cr)}
+.submit-btn{background:linear-gradient(120deg,#ff5c5c 0%,var(--cr) 55%,#c81e4e 100%);box-shadow:0 4px 20px var(--glow-red);border:none;color:#fff;font-size:14px;font-weight:600;padding:12px 22px;border-radius:10px;cursor:pointer;font-family:var(--sans)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.form-msg{font-size:13px;margin-top:14px;padding:10px 12px;border-radius:var(--r);display:none}
+.form-msg.show{display:block}
+.form-msg.ok{background:rgba(0,210,106,.1);color:var(--gn3);border:1px solid rgba(0,210,106,.25)}
+.form-msg.err{background:rgba(255,68,68,.1);color:var(--cr3);border:1px solid rgba(255,68,68,.25)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand"><img src="mb-logo.png" alt="MB Trade Lab logo">MB TRADE LAB</div>
+  <a class="back" href="index.html">← Back to home</a>
+</nav>
+
+<div class="wrap">
+  <h1>Support</h1>
+  <p class="sub">Answers to common questions, and a direct line to us for anything else.</p>
+
+  <div id="faq">
+    <details class="faq-item" open>
+      <summary>How does the free trial work?<span class="chev">+</span></summary>
+      <p>Every new account gets 14 days of full access — every feature, no card required to start. You'll see a banner counting down the days left. When it ends, you'll need to subscribe to keep using your journal; your data stays exactly as you left it and is never deleted for a lapsed trial.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What does MB Trade Lab cost after the trial?<span class="chev">+</span></summary>
+      <p>A single monthly subscription — no tiers, no feature-gating to worry about. The exact price is shown before you confirm anything, at checkout.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Which pairs and instruments can I log?<span class="chev">+</span></summary>
+      <p>All forex majors and minors, gold and silver, oil, natural gas, and the major indices (NAS100, US30, SPX500, GER40, UK100, JPN225, FRA40, AUS200) — pick whichever you actually trade.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I export my data?<span class="chev">+</span></summary>
+      <p>Yes — your full trade history exports to CSV at any time from inside the journal, so your data is never locked in.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I share my journal with someone (a mentor, a prop firm)?<span class="chev">+</span></summary>
+      <p>Yes — every journal has a read-only shareable link that shows your dashboards without letting anyone edit your trades.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do I cancel?<span class="chev">+</span></summary>
+      <p>Email us at <a href="mailto:mbtradelab@gmail.com">mbtradelab@gmail.com</a> and we'll cancel your subscription — you'll keep access until the end of your current billing period, and your data stays put in case you come back.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is my trading data private?<span class="chev">+</span></summary>
+      <p>Yes. Your trades are visible only to you (and to anyone you deliberately send a read-only share link to). See our <a href="privacy.html">Privacy Policy</a> for the full details.</p>
+    </details>
+  </div>
+
+  <div class="contact">
+    <h2>Still stuck?</h2>
+    <p class="sub">Send us a message and we'll get back to you at the email you provide.</p>
+    <form id="support-form">
+      <div class="field">
+        <label for="sf-email">Your email</label>
+        <input type="email" id="sf-email" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="sf-subject">What's this about?</label>
+        <select id="sf-subject" required>
+          <option value="">Choose one…</option>
+          <option>Trial / billing question</option>
+          <option>Bug report</option>
+          <option>Feature request</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sf-message">Message</label>
+        <textarea id="sf-message" required placeholder="What's going on?"></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="sf-submit">Send message</button>
+      <div class="form-msg" id="sf-msg"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const SB='https://sijfjwvvlfjhnhyvozka.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpamZqd3Z2bGZqaG5oeXZvemthIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwMjY4NDMsImV4cCI6MjEwMzYwMjg0M30.p2RprpeKR-GRzCU8O6PcqmBmnj1rTSZQHNzJL56-fvM';
+
+document.getElementById('support-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn=document.getElementById('sf-submit');
+  const msg=document.getElementById('sf-msg');
+  const payload={
+    email:document.getElementById('sf-email').value.trim(),
+    subject:document.getElementById('sf-subject').value,
+    message:document.getElementById('sf-message').value.trim()
+  };
+  btn.disabled=true;btn.textContent='Sending…';
+  msg.classList.remove('show','ok','err');
+  try{
+    const res=await fetch(SB+'/rest/v1/support_messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY,'Prefer':'return=minimal'},
+      body:JSON.stringify(payload)
+    });
+    if(!res.ok){const t=await res.text();throw new Error(t||'Something went wrong.');}
+    document.getElementById('support-form').reset();
+    msg.textContent='Message sent — we\'ll get back to you soon.';
+    msg.classList.add('show','ok');
+  }catch(err){
+    msg.textContent='Could not send — please email mbtradelab@gmail.com directly.';
+    msg.classList.add('show','err');
+    console.error('support form error:',err);
+  }finally{
+    btn.disabled=false;btn.textContent='Send message';
+  }
+});
+</script>
+</body>
+</html>

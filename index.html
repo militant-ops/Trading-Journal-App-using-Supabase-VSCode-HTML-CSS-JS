@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MB Trade Lab — Your Trades. Your Data. Your Edge.</title>
+<meta name="description" content="A personal trading journal for forex, metals, and indices traders. Log trades in R:R or real currency, see your edge in a monthly heatmap, track Live vs. Backtest performance, and import or export your data anytime.">
+<link rel="icon" type="image/png" href="mb-logo.png">
+<meta property="og:title" content="MB Trade Lab — Your Trades. Your Data. Your Edge.">
+<meta property="og:description" content="Log every trade in R:R or real currency, see your edge in a monthly heatmap, and track live vs. backtest performance — all in one place.">
+<meta property="og:image" content="https://mbtradelab.com/shot-dashboard.png">
+<meta property="og:image:width" content="3288">
+<meta property="og:image:height" content="1846">
+<meta property="og:url" content="https://mbtradelab.com/">
+<meta property="og:site_name" content="MB Trade Lab">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MB Trade Lab — Your Trades. Your Data. Your Edge.">
+<meta name="twitter:description" content="Log every trade in R:R or real currency, see your edge in a monthly heatmap, and track live vs. backtest performance — all in one place.">
+<meta name="twitter:image" content="https://mbtradelab.com/shot-dashboard.png">
+<style>
+:root{
+  --bg:#060608;--bg2:#0E0E12;--panel:#121218;--panel2:#181820;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --cr:#D93025;--cr2:#B5281E;--cr3:#FF4444;--gn3:#00D26A;
+  --wh:#F5F5F7;--wh2:#A0A0B0;--wh3:#50506A;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
+  --r:8px;--r2:12px;
+  --glow-red:rgba(217,48,37,0.35);
+  --gl-purple:#a855f7;--gl-blue:#38bdf8;
+  --glass-bg:rgba(255,255,255,0.045);--glass-bg2:rgba(255,255,255,0.07);
+  --glass-border:rgba(255,255,255,0.12);--glass-blur:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--wh);
+  background:
+    radial-gradient(ellipse 700px 550px at 12% -4%, rgba(217,48,37,0.16) 0%, transparent 58%),
+    radial-gradient(ellipse 620px 520px at 90% 6%, rgba(168,85,247,0.11) 0%, transparent 55%),
+    radial-gradient(ellipse 640px 540px at 92% 96%, rgba(56,189,248,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 520px 420px at 6% 98%, rgba(0,210,106,0.05) 0%, transparent 50%),
+    var(--bg);
+  background-attachment:fixed;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* Fade-in on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;max-width:1120px;margin:0 auto;
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  background:rgba(6,6,8,0.55);
+  border-bottom:1px solid var(--glass-border);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:.2px}
+.brand img{height:30px;width:auto;display:block}
+.nav-cta{background:linear-gradient(120deg,#ff5c5c 0%,var(--cr) 55%,#c81e4e 100%);color:#fff;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:box-shadow .15s, transform .15s;box-shadow:0 4px 18px var(--glow-red)}
+.nav-cta:hover{box-shadow:0 6px 24px var(--glow-red);transform:translateY(-1px)}
+
+.hero{padding:80px 24px 30px;text-align:center}
+.hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cr3);margin-bottom:18px}
+.hero h1{font-size:clamp(32px,6vw,58px);font-weight:800;letter-spacing:-1px;line-height:1.08;max-width:840px;margin:0 auto 20px}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(100deg,#ff5c5c 0%,var(--gl-purple) 55%,var(--gl-blue) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+}
+.hero p{font-size:16px;color:var(--wh2);max-width:540px;margin:0 auto 32px}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:11px;font-size:14px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(120deg,#ff5c5c 0%,var(--cr) 55%,#c81e4e 100%);color:#fff;box-shadow:0 4px 20px var(--glow-red)}
+.btn-primary:hover{box-shadow:0 6px 28px var(--glow-red);transform:translateY(-1px)}
+.btn-ghost{background:var(--glass-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);color:var(--wh2)}
+.btn-ghost:hover{border-color:var(--gl-purple);color:var(--wh);background:var(--glass-bg2)}
+
+.stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:40px 24px 60px;font-family:var(--mono)}
+.stat b{display:block;font-size:24px;color:var(--wh)}
+.stat span{font-size:11px;color:var(--wh3);text-transform:uppercase;letter-spacing:.5px}
+
+.showcase{padding:20px 24px 100px;max-width:1120px;margin:0 auto}
+.showcase-block{display:flex;align-items:center;gap:56px;padding:70px 0}
+.showcase-block:nth-child(even){flex-direction:row-reverse}
+.showcase-text{flex:0 0 340px}
+.showcase-text .tag{font-family:var(--mono);font-size:11px;color:var(--cr3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;display:block}
+.showcase-text h3{font-size:26px;font-weight:800;margin-bottom:14px;letter-spacing:-.3px}
+.showcase-text p{color:var(--wh2);font-size:14.5px;line-height:1.7}
+.showcase-img{flex:1;min-width:0}
+.showcase-img .frame{
+  border:1px solid var(--glass-border);border-radius:18px;overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);
+  background:linear-gradient(145deg,var(--glass-bg2) 0%,var(--glass-bg) 100%);
+  backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.showcase-img .frame:hover{transform:translateY(-5px);box-shadow:0 36px 84px rgba(0,0,0,.6),0 0 0 1px rgba(168,85,247,.15),inset 0 1px 0 rgba(255,255,255,.08)}
+.showcase-img img{width:100%;display:block;cursor:zoom-in}
+
+.lightbox{position:fixed;inset:0;background:rgba(6,6,8,0.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;padding:60px 24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,.65);cursor:default}
+.lightbox-close{position:fixed;top:20px;right:24px;background:var(--glass-bg2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;cursor:pointer;transition:background .15s}
+.lightbox-close:hover{background:var(--glass-bg)}
+@media(max-width:700px){.lightbox{padding:32px 12px}}
+
+.features{padding:20px 24px 100px;max-width:1120px;margin:0 auto}
+.features h2{font-size:32px;font-weight:800;text-align:center;margin-bottom:10px;letter-spacing:-.5px}
+.features>p{text-align:center;color:var(--wh2);max-width:500px;margin:0 auto 50px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:linear-gradient(145deg,var(--glass-bg2) 0%,var(--glass-bg) 100%);
+  backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
+  border:1px solid var(--glass-border);border-radius:16px;padding:26px;
+  box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.3);box-shadow:0 14px 36px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08)}
+.card .ic{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(217,48,37,.18),rgba(168,85,247,.12));display:flex;align-items:center;justify-content:center;color:var(--cr3);margin-bottom:16px}
+.card h3{font-size:15.5px;font-weight:700;margin-bottom:8px}
+.card p{font-size:13px;color:var(--wh2);line-height:1.6}
+
+.pricing{padding:20px 24px 100px;max-width:900px;margin:0 auto}
+.pricing h2{font-size:32px;font-weight:800;text-align:center;margin-bottom:10px;letter-spacing:-.5px}
+.pricing>p{text-align:center;color:var(--wh2);max-width:520px;margin:0 auto 50px}
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.price-card{
+  background:linear-gradient(145deg,var(--glass-bg2) 0%,var(--glass-bg) 100%);
+  backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));
+  border:1px solid var(--glass-border);border-radius:18px;padding:32px 28px;
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.price-card.featured{border-color:rgba(168,85,247,.4);box-shadow:0 20px 50px rgba(168,85,247,.16),inset 0 1px 0 rgba(255,255,255,.08)}
+.price-card .badge-save{position:absolute;top:-13px;right:24px;background:linear-gradient(120deg,#ff5c5c,var(--gl-purple));color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:999px;letter-spacing:.3px}
+.price-card .plan-name{font-family:var(--mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cr3);margin-bottom:14px}
+.price-card .plan-price{font-size:42px;font-weight:800;letter-spacing:-1px;margin-bottom:2px}
+.price-card .plan-price span{font-size:15px;font-weight:500;color:var(--wh3)}
+.price-card .plan-sub{font-size:12.5px;color:var(--wh3);margin-bottom:24px}
+.price-card ul{list-style:none;margin:0 0 28px;flex:1;padding:0}
+.price-card li{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--wh2);margin-bottom:12px;line-height:1.5}
+.price-card li svg{flex-shrink:0;margin-top:2px;color:var(--gn3)}
+.price-card .btn{width:100%;justify-content:center}
+.pricing-trial-note{text-align:center;color:var(--wh3);font-size:12.5px;margin-top:28px}
+@media(max-width:700px){.price-grid{grid-template-columns:1fr}}
+
+.footer-cta{padding:80px 24px;text-align:center;border-top:1px solid var(--border)}
+.footer-cta h2{font-size:28px;font-weight:800;margin-bottom:10px;letter-spacing:-.3px}
+.footer-cta p{color:var(--wh2);margin-bottom:28px}
+
+footer{border-top:1px solid var(--border);padding:50px 24px 26px}
+.footer-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:34px}
+.footer-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;margin-bottom:12px}
+.footer-brand img{height:26px;width:auto}
+.footer-col p.tagline{color:var(--wh3);font-size:13px;max-width:260px;line-height:1.6}
+.footer-col h4{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--wh3);margin-bottom:14px;font-weight:600}
+.footer-col a{display:block;color:var(--wh2);font-size:13.5px;margin-bottom:10px;transition:color .15s}
+.footer-col a:hover{color:var(--wh)}
+.footer-bottom{max-width:1120px;margin:0 auto;border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;color:var(--wh3);font-size:12px}
+@media(max-width:700px){
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+}
+footer{padding:26px;text-align:center;color:var(--wh3);font-size:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+footer img{height:16px;width:auto;opacity:.7}
+
+@media(max-width:900px){
+  .showcase-block, .showcase-block:nth-child(even){flex-direction:column}
+  .showcase-text{flex:none}
+}
+@media(max-width:768px){
+  .grid{grid-template-columns:1fr}
+  .stats{gap:28px}
+  .showcase-block{padding:44px 0}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><img src="mb-logo.png" alt="MB Trade Lab logo">MB TRADE LAB</div>
+  <a class="nav-cta" href="mb-trade-lab.html">Start Free Trial</a>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow reveal">Personal trading journal</div>
+  <h1 class="reveal reveal-delay-1">Your trades. Your data.<br><em>Your edge.</em></h1>
+  <p class="reveal reveal-delay-2">Log every trade in R:R or real currency, see your edge in a monthly heatmap, and track live vs. backtest performance — all in one place, built around how you actually trade.</p>
+  <div class="hero-actions reveal reveal-delay-3">
+    <a class="btn btn-primary" href="mb-trade-lab.html">Start your 14-day free trial →</a>
+  </div>
+</section>
+
+<div class="stats reveal">
+  <div class="stat"><b>R:R or $</b><span>Your choice, everywhere</span></div>
+  <div class="stat"><b>Live + Backtest</b><span>Trade types</span></div>
+  <div class="stat"><b>40+ Forex, Metals & Indices</b><span>Pairs tracked</span></div>
+  <div class="stat"><b>Daily · Weekly · Monthly</b><span>Breakdowns</span></div>
+</div>
+
+<section class="showcase" id="showcase">
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Dashboard</span>
+      <h3>Everything at a glance</h3>
+      <p>Net R:R, win rate, account growth, and drawdown for the period you pick — filtered by Live, Backtest, or both, and by session. Your monthly heatmap sits right below.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-dashboard.png" alt="MB Trade Lab dashboard with stats and monthly heatmap"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Currency tracking</span>
+      <h3>Think in R, or think in dollars</h3>
+      <p>Flip any page between R:R and real currency with one click. Log the exact amount made or lost per trade, and every stat, heatmap cell, and breakdown recalculates instantly — falling back to R:R only for trades that never had an amount logged.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-currency.png" alt="MB Trade Lab dashboard switched to currency view, showing net amount, drawdown, and heatmap in dollars"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Trade logbook</span>
+      <h3>Every trade, fully searchable</h3>
+      <p>Filter by year, month, pair, session, outcome, or type, and switch the result column between R:R and currency on the fly. Click any row to edit it, complete with chart links and notes.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-logbook.png" alt="MB Trade Lab trade logbook with filters and currency view toggle"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Monthly heatmap</span>
+      <h3>See your edge, day by day</h3>
+      <p>Every trading day colored by result, with a weekly net-R column so you can spot your best and worst weeks at a glance. Your equity curve and session breakdown sit right underneath.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-heatmap-equity.png" alt="MB Trade Lab monthly heatmap, equity curve, and session breakdown"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Performance</span>
+      <h3>Live vs. backtest, side by side</h3>
+      <p>Filter by type, year, month, session, or pair to see net R:R, win rate, account growth, drawdown, and streaks — then drill into any month for the full breakdown.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-performance.png" alt="MB Trade Lab performance page with monthly breakdown"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Best & worst</span>
+      <h3>Know exactly when your edge shows up</h3>
+      <p>Your best and worst trading day and session, ranked by net R:R with win rate and trade count alongside — updated live as you log, edit, or import trades.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-bestworst.png" alt="MB Trade Lab best and worst day and session breakdown"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Analytics</span>
+      <h3>Every number a serious trader actually checks</h3>
+      <p>Win rate, profit factor, expectancy, and risk-adjusted return. Drawdown in R and %. Streaks, R-multiple distribution, and breakdowns by pair, setup, session, hour, and day — plus an overtrading flag when your volume spikes above normal.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-analytics.png" alt="MB Trade Lab analytics page with win rate, profit factor, drawdown, and breakdowns by pair and setup"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Journal</span>
+      <h3>Reflections, not just numbers</h3>
+      <p>Free-form entries for the mindset side of trading — discipline check-ins, weekly reflections, goals — separate from any single trade so your journal holds the full story, not just the R:R.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-journal.png" alt="MB Trade Lab journal page with free-form trading reflections"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">MT4/MT5 auto-sync</span>
+      <h3>Connect your account, stop typing in trades</h3>
+      <p>Connect a live MT4/MT5 account — including most prop firms, which run on the same platforms — and every closed trade logs itself here automatically. Real balance, deposits, and withdrawals sync straight from your broker too. Nothing is installed on our side, and no credentials are ever shared with us.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-accounts.webp" alt="MB Trade Lab Accounts page showing two connected MT4/MT5 accounts with live balances"></div>
+    </div>
+  </div>
+
+  <div class="showcase-block">
+    <div class="showcase-text reveal">
+      <span class="tag">Missed trades</span>
+      <h3>Log the setups you didn't take, too</h3>
+      <p>Saw a clean setup but hesitated? Log it right alongside your real trades in the monthly breakdown — visible for honest review, but never counted toward win rate, R:R, or account growth.</p>
+    </div>
+    <div class="showcase-img reveal reveal-delay-1">
+      <div class="frame"><img src="shot-missed-trades.webp" alt="MB Trade Lab Performance page showing a missed trade tagged inline alongside real trades"></div>
+    </div>
+  </div>
+
+</section>
+
+<section class="features">
+  <h2 class="reveal">Everything your journal should do</h2>
+  <p class="reveal">No spreadsheets, no guesswork — just a clear picture of how your strategy is actually performing.</p>
+  <div class="grid">
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+      <h3>Monthly heatmap</h3>
+      <p>Every trading day colored by result, with a weekly net-R column so you can spot your best and worst weeks at a glance.</p>
+    </div>
+    <div class="card reveal reveal-delay-1">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <h3>Detailed trade logbook</h3>
+      <p>Log pair, session, direction, R:R or the exact amount made or lost, chart links, and notes for every trade — searchable and filterable in seconds.</p>
+    </div>
+    <div class="card reveal reveal-delay-2">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3>Live vs. backtest performance</h3>
+      <p>Filter your stats by Live, Backtest, or both — win rate, drawdown, streaks, and account growth, side by side.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <h3>Session & pair breakdowns</h3>
+      <p>See which sessions and pairs actually make you money, filtered by year, month, or custom date range.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3>R:R or real currency</h3>
+      <p>Log the exact amount made or lost alongside R:R, and switch any page between the two with one click — dashboards, heatmaps, and every breakdown recalculate instantly.</p>
+    </div>
+    <div class="card reveal reveal-delay-1">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      <h3>Full strategy management</h3>
+      <p>Keep separate journals per strategy — each with its own isolated data, dashboards, and stats. Rename, edit setups and context tags, or spin up a new strategy in seconds.</p>
+    </div>
+    <div class="card reveal reveal-delay-2">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+      <h3>Import & export anytime</h3>
+      <p>Bring in trades from a spreadsheet, Notion, or another journal with one import, and pull your full history back out whenever you want — your data always stays yours.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div>
+      <h3>Best & worst insights</h3>
+      <p>Instantly see your best and worst trading days and sessions by net R:R, win rate, and trade count — so you know exactly when your edge shows up.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <h3>Deep performance analytics</h3>
+      <p>Profit factor, expectancy, risk-adjusted return, R-multiple distribution, and breakdowns by pair, setup, direction, hour, and month — the full picture, not just win rate.</p>
+    </div>
+    <div class="card reveal reveal-delay-1">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <h3>Free-form journal</h3>
+      <p>Write reflections, discipline check-ins, and goals that aren't tied to any single trade — the mindset side of trading, right next to your numbers.</p>
+    </div>
+    <div class="card reveal reveal-delay-2">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+      <h3>Set your own defaults</h3>
+      <p>Choose the strategy and dashboard view that load by default, so the app opens exactly where you need it every time you sit down to trade.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M7 9l5-5 5 5"/><path d="M12 4v13"/></svg></div>
+      <h3>Automatic MT4/MT5 sync</h3>
+      <p>Connect your account once and every closed trade logs itself, in real time — no manual entry. Offline for a while? It automatically catches up the moment it reconnects.</p>
+    </div>
+    <div class="card reveal reveal-delay-1">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3>Real balance, live from MT5</h3>
+      <p>Starting balance, current balance, and net change pulled straight from your broker — deposits and withdrawals show up in the journal automatically, labeled and never mistaken for a trade.</p>
+    </div>
+    <div class="card reveal reveal-delay-2">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+      <h3>Multi-account support</h3>
+      <p>Connect as many MT4/5 accounts as you trade, filter by one or all of them anywhere in the app, and see growth measured against each account's own real starting balance.</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <h3>Missed trade tracking</h3>
+      <p>Log the setups you saw but didn't take, right alongside real trades in your monthly breakdown — there for review, never counted toward win rate, R:R, or growth.</p>
+    </div>
+    <div class="card reveal reveal-delay-1">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <h3>One-click, risk-based execution</h3>
+      <p>Drag a line to your stop loss, set your risk %, click Buy or Sell — lot size is calculated fresh from the live price every time. No more test pending orders just to check sizing.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h2 class="reveal">Simple pricing, one full plan</h2>
+  <p class="reveal">Every plan includes everything — MT4/MT5 auto-sync, unlimited accounts, full analytics. Start with a 14-day free trial, no card required.</p>
+  <div class="price-grid">
+    <div class="price-card reveal">
+      <div class="plan-name">Monthly</div>
+      <div class="plan-price">£19<span>/month</span></div>
+      <div class="plan-sub">Billed monthly — cancel any time.</div>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>14-day free trial, no card required</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Unlimited MT4/MT5 accounts</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Full analytics & performance suite</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Switch plans or cancel any time</li>
+      </ul>
+      <a class="btn btn-ghost" href="mb-trade-lab.html">Start your 14-day free trial</a>
+    </div>
+    <div class="price-card featured reveal reveal-delay-1">
+      <span class="badge-save">2 months free</span>
+      <div class="plan-name">Yearly</div>
+      <div class="plan-price">£190<span>/year</span></div>
+      <div class="plan-sub">Just £15.83/month, billed annually.</div>
+      <ul>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>14-day free trial, no card required</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Unlimited MT4/MT5 accounts</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Full analytics & performance suite</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>2 months free vs. paying monthly</li>
+      </ul>
+      <a class="btn btn-primary" href="mb-trade-lab.html">Start your 14-day free trial</a>
+    </div>
+  </div>
+  <div class="pricing-trial-note">Every plan starts with a 14-day free trial — you're only charged once it ends, and you can cancel any time before then.</div>
+</section>
+
+<section class="footer-cta reveal">
+  <h2>Ready to see your edge?</h2>
+  <p>Start your 14-day free trial — no card required.</p>
+  <a class="btn btn-primary" href="mb-trade-lab.html">Start your 14-day free trial →</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand"><img src="mb-logo.png" alt="MB Trade Lab logo">MB TRADE LAB</div>
+      <p class="tagline">A personal trading journal built for traders who take their edge seriously.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#showcase">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="mb-trade-lab.html">Log In / Sign Up</a>
+      <a href="support.html">Support</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:mbtradelab@gmail.com">mbtradelab@gmail.com</a>
+      <a href="https://instagram.com/mbtradelab" target="_blank" rel="noopener">@mbtradelab on Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MB Trade Lab. All rights reserved.</span>
+    <span style="display:flex;gap:18px">
+      <a href="privacy.html" style="color:var(--wh3)">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--wh3)">Terms of Service</a>
+    </span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Click any screenshot to see it full-size
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.alt = alt || '';
+  lb.classList.add('open');
+}
+function closeLightbox(e) {
+  if (e && e.target.tagName === 'IMG') return; // clicking the image itself shouldn't close it
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+});
+document.querySelectorAll('.showcase-img img').forEach(img => {
+  img.addEventListener('click', () => openLightbox(img.currentSrc || img.src, img.alt));
+});
+</script>
+
+</body>
+</html>
