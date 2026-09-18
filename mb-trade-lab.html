@@ -786,8 +786,9 @@ body.light-theme #bottom-tab-bar{background:rgba(255,255,255,0.75)!important}
 .paywall-btn{width:100%;background:linear-gradient(120deg,#ff5c5c 0%,var(--cr) 55%,#c81e4e 100%);box-shadow:0 4px 20px var(--glow-red);border:none;color:#fff;font-size:13px;font-weight:600;padding:12px;border-radius:10px;cursor:pointer;font-family:var(--sans)}
 .paywall-btn:disabled{opacity:.6;cursor:not-allowed}
 .paywall-plans{display:flex;gap:10px}
-.paywall-plans .paywall-btn{width:auto;flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
-.paywall-plans .paywall-btn small{font-size:10px;font-weight:500;opacity:.85}
+.paywall-plans .paywall-btn{width:auto;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:14px 12px;box-shadow:0 4px 14px rgba(217,48,37,.22);border:1px solid rgba(255,255,255,.1)}
+.paywall-plans .paywall-btn:hover{box-shadow:0 6px 20px rgba(217,48,37,.3)}
+.paywall-plans .paywall-btn small{font-size:10.5px;font-weight:500;opacity:.85;letter-spacing:.2px}
 .paywall-msg{font-size:12px;margin-top:14px;color:#FF4444;display:none}
 .paywall-msg.show{display:block}
 .paywall-signout{margin-top:16px;font-size:11px;color:var(--wh3);background:none;border:none;cursor:pointer;font-family:var(--sans)}
@@ -5900,7 +5901,28 @@ function enterApp(){
   renderWelcomeMessage(getUserFirstName());
   checkFeedbackHint();
   checkSubscriptionGate();
+  checkCheckoutRedirect();
   init();
+}
+
+// Stripe Checkout sends the browser back to ?checkout=success or
+// ?checkout=cancelled (see stripe-checkout's success_url/cancel_url) — this
+// turns that into a one-time toast, then strips the param so refreshing or
+// going back doesn't show it again.
+function checkCheckoutRedirect(){
+  const params=new URLSearchParams(window.location.search);
+  const checkout=params.get('checkout');
+  if(checkout==='success'){
+    toast("You're all set — enjoy MB Trade Lab! 🎉",'success');
+  }else if(checkout==='cancelled'){
+    toast('Checkout cancelled — no charge was made.','error');
+  }else{
+    return;
+  }
+  params.delete('checkout');
+  const qs=params.toString();
+  try{ window.history.replaceState({},'',window.location.pathname+(qs?'?'+qs:'')+window.location.hash); }
+  catch(e){ /* some embedding contexts restrict history writes — the toast still showed, that's what matters */ }
 }
 
 // ── Trial / subscription gate ────────────────────────────────────────────

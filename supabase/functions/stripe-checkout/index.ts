@@ -79,14 +79,18 @@ Deno.serve(async (req) => {
         .eq("user_id", user.id);
     }
 
-    const appUrl = Deno.env.get("APP_URL") ?? "https://example.com";
+    // APP_URL is the bare origin (e.g. https://mbtradelab.com, no trailing
+    // slash) — Checkout must send the browser back to the APP itself
+    // (mb-trade-lab.html), not the marketing homepage, or the user lands
+    // signed out of the app with no idea their payment went through.
+    const appUrl = (Deno.env.get("APP_URL") ?? "https://example.com").replace(/\/+$/, "");
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer: customerId,
       client_reference_id: user.id, // belt-and-braces: lets the webhook find the user even if the customer lookup below ever misses
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${appUrl}?checkout=success`,
-      cancel_url: `${appUrl}?checkout=cancelled`,
+      success_url: `${appUrl}/mb-trade-lab.html?checkout=success`,
+      cancel_url: `${appUrl}/mb-trade-lab.html?checkout=cancelled`,
       // stripe-webhook reads metadata.plan straight off checkout.session.completed
       // rather than having to re-derive it from the price id.
       metadata: { supabase_user_id: user.id, plan },

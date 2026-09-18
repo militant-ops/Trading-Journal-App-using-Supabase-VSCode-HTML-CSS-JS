@@ -56,10 +56,12 @@ Deno.serve(async (req) => {
       return json({ error: "No billing account yet — subscribe first, then billing can be managed here." }, 400);
     }
 
-    const appUrl = Deno.env.get("APP_URL") ?? "https://example.com";
+    // Same rule as stripe-checkout's success_url — send them back to the app
+    // itself, not the marketing homepage.
+    const appUrl = (Deno.env.get("APP_URL") ?? "https://example.com").replace(/\/+$/, "");
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: sub.stripe_customer_id,
-      return_url: appUrl,
+      return_url: `${appUrl}/mb-trade-lab.html`,
     });
 
     return json({ url: portalSession.url });
