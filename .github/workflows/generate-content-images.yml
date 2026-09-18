@@ -21,6 +21,32 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: |
+          npm install sharp@0.33 playwright@1 @supabase/supabase-js@2
+          npx playwright install --with-deps chromium
+
+      - name: Screenshot live site
+        run: |
+          for dir in content-drafts/*/; do
+            node .github/scripts/screenshot-site.mjs "${dir%/}"
+          done
+
+      - name: Seed demo account with sample trades
+        env:
+          DEMO_ACCOUNT_EMAIL: ${{ secrets.DEMO_ACCOUNT_EMAIL }}
+          DEMO_ACCOUNT_PASSWORD: ${{ secrets.DEMO_ACCOUNT_PASSWORD }}
+        run: node .github/scripts/seed-demo-account.mjs
+
+      - name: Screenshot authenticated app views
+        env:
+          DEMO_ACCOUNT_EMAIL: ${{ secrets.DEMO_ACCOUNT_EMAIL }}
+          DEMO_ACCOUNT_PASSWORD: ${{ secrets.DEMO_ACCOUNT_PASSWORD }}
+        run: |
+          for dir in content-drafts/*/; do
+            node .github/scripts/screenshot-app.mjs "${dir%/}"
+          done
+
       - name: Generate images from prompts
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -30,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A -- 'content-drafts/**/graphics/*'
+          git add -A -- 'content-drafts/**/graphics/*' 'content-drafts/**/site-screenshots/*'
           if git diff --cached --quiet; then
             echo "No new images to commit"
           else
