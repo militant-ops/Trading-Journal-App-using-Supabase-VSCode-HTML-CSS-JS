@@ -1,0 +1,70 @@
+[
+  {
+    "id": "x-expectancy",
+    "filename": "x-expectancy.png",
+    "template": "list",
+    "size": "1080x1350",
+    "data": {
+      "eyebrow": "TRADING MATH",
+      "title": "Win rate lies. Expectancy doesn't.",
+      "items": [
+        {
+          "parts": [
+            { "text": "30% win rate, 4R avg win, 1R avg loss  →  " },
+            { "text": "+0.5R per trade", "style": "green" }
+          ]
+        },
+        {
+          "parts": [
+            { "text": "70% win rate, 0.5R avg win, 2R avg loss  →  " },
+            { "text": "−0.25R per trade", "style": "red" }
+          ]
+        },
+        {
+          "parts": [
+            { "text": "Formula: ", "style": "bold" },
+            { "text": "(Win% × Avg Win) − (Loss% × Avg Loss)" }
+          ]
+        }
+      ],
+      "footer": {
+        "parts": [
+          { "text": "A 70% win rate can still be a losing system.", "style": "muted" }
+        ]
+      }
+    }
+  },
+  {
+    "id": "tiktok-overtrading",
+    "filename": "tiktok-overtrading.png",
+    "template": "timeline",
+    "size": "1080x1350",
+    "data": {
+      "eyebrow": "RISK MANAGEMENT",
+      "title": "How to actually detect overtrading",
+      "subtitle": "Not a gut feeling. A formula.",
+      "steps": [
+        {
+          "label": "1. Log your trades/day for a month",
+          "description": "You need your real per-day count, not a guess"
+        },
+        {
+          "label": "2. Find your average trades/day",
+          "description": "That's your baseline volume"
+        },
+        {
+          "label": "3. Find the standard deviation",
+          "description": "How much your daily count actually swings"
+        },
+        {
+          "label": "4. Threshold = average + 1 std dev",
+          "description": "Anything above this isn't a busy day — it's a spike"
+        },
+        {
+          "label": "5. Flag every day that crosses it",
+          "description": "MB Trade Lab does this automatically, then shows your win rate on those flagged days"
+        }
+      ]
+    }
+  }
+]

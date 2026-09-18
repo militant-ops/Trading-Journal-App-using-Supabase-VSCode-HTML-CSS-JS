@@ -1,51 +1,47 @@
 # Social Posts — 2026-09-18
 
-## Post 1 — X/Twitter (Feature: automatic MT4/MT5 trade sync)
-
-Your journal is only as good as the data in it.
-
-Most traders skip logging half their trades because typing them in by hand is tedious — so the sample you're judging your edge on is biased before you even open your stats.
-
-MB Trade Lab's EA closes that gap: it pushes every closed MT4/MT5 trade into your journal automatically and derives your *real* risk % from the actual stop-loss distance, not what you meant to risk. Terminal was closed for a day? It catches up the moment it reconnects.
-
-No manual entry. No missing trades. No guessed risk %.
-
-**Hashtags:** #ForexTrading #TradingJournal #MT4 #MT5 #RiskManagement #PriceAction
-
-**Visual:** `graphics/post1.webp` (copy of `shot-accounts.webp` — Accounts page showing live-synced MT4/MT5 balances)
+Revised to match the current content bar: short captions, substance lives in the graphic/screenshot, X + Instagram + TikTok only (no LinkedIn), rendered graphics instead of AI art.
 
 ---
 
-## Post 2 — LinkedIn (Feature: multi-strategy isolation)
+## X / Twitter — Education: expectancy vs. win rate
 
-A mistake I see constantly in trading journals: one big pool of trades covering three different strategies.
+**Caption:**
+A 70% win rate can still be a losing system. The math that actually tells you if your edge works — save this before your next trade review.
 
-Blend a scalping strategy with a swing strategy in the same stats and the averages lie to you — your scalping win rate drags down what might be a genuinely strong swing edge, and vice versa. Traders abandon strategies that were actually working, because the strategy was never measured on its own.
-
-MB Trade Lab keeps every strategy in its own isolated dashboard: separate win rate, net R:R, drawdown, and monthly heatmap per strategy — so you can see which one actually has an edge instead of judging all of them by a blended average that describes none of them.
-
-**Hashtags:** #TradingStrategy #TradingPsychology #ForexTrading #RiskManagement #DayTrading
-
-**Visual:** `graphics/post2.png` (copy of `shot-strategies.png` — strategy management view with isolated per-strategy data)
+**Visual:** `graphics/x-expectancy.png` (rendered — `list` template, spec id `x-expectancy` in `graphic-specs.json`). The graphic itself carries both worked examples and the formula, so the tweet text stays to one hook line.
 
 ---
 
-## Post 3 — X/Twitter (General trading education: expectancy, no specific app feature)
+## Instagram — Feature: automatic MT4/MT5 trade sync
 
-Win rate is the most overrated number in trading.
+**Hook line:** Stop typing your trades into a spreadsheet.
 
-A strategy that wins 30% of the time can be far more profitable than one that wins 70%, once you factor in the size of wins vs. losses. The number that actually tells you whether a strategy is worth trading is **expectancy**:
+**Caption:**
+Connect a live MT4 or MT5 account — including most prop firm platforms — and every closed trade logs itself, with real risk % pulled from your actual stop-loss distance instead of a guess. Balances, deposits, and withdrawals sync too. Terminal was closed for a while? It catches up the moment it reconnects.
 
-`Expectancy = (Win% × Avg Win in R) − (Loss% × Avg Loss in R)`
+**CTA:** Start your 14-day free trial — link in bio.
 
-Example A — 30% win rate, 4R average win, 1R average loss:
-(0.3 × 4) − (0.7 × 1) = **+0.5R per trade** → profitable.
+**Visual:** `graphics/instagram-mt4-sync.webp` (real screenshot, copied from `shot-accounts.webp` — the actual Accounts page showing two connected MT4/MT5 accounts with live sync timestamps)
 
-Example B — 70% win rate, 0.5R average win, 2R average loss:
-(0.7 × 0.5) − (0.3 × 2) = **−0.25R per trade** → a loser, despite winning most of the time.
+**Hashtags:** #ForexTrading #TradingJournal #MT4 #MT5 #PropFirm #PropTrading #RiskManagement #TradingTools #ForexLife #DayTrading #TradingAutomation #ForexTrader #TradeJournal #ForexCommunity #TradingEdge #FundedTrader #ForexSignals #TradingPsychology #Metatrader #TradingApp
 
-Stop asking "how often do I win?" Start asking "what's my expectancy?"
+---
 
-**Hashtags:** #TradingEducation #ForexTrading #Expectancy #RiskManagement #TradingPsychology
+## TikTok — Education: how overtrading detection actually works
 
-**Visual:** `graphics/post3.png` (AI-generated — see `image-prompts.json`, entry id `post3-expectancy`)
+**Hook (first 2 sec, on screen + voiceover):** "Your journal calling you an overtrader isn't a vibe check. It's math."
+
+**Shot list (for a human to film):**
+1. Talking head or text-on-screen: "Most journals just tell you 'you're overtrading.' Here's the actual formula behind that call."
+2. Show `graphics/tiktok-overtrading.png` full-screen (or recreate the steps as on-screen text) while narrating step 1–2: log every trading day for a month, then find your average trades/day.
+3. Cut to step 3–4 on the same graphic: find the standard deviation of your daily count, then your threshold = average + 1 standard deviation.
+4. Screen-record MB Trade Lab's Analytics tab, scrolling to the "Overtrading Days" stat card and the flagged-days table, to show it's calculated live from the trader's own data — not a fixed number like "5 trades a day."
+5. Quick zoom on one flagged day's win rate in the table (proving the point: high-volume days often have a worse win rate).
+6. Closing line, text on screen: "Your overtrading line isn't a rule you read somewhere. It's your own average, plus your own volatility."
+
+**Closing CTA (voiceover + on-screen):** "MB Trade Lab calculates this for you automatically — link in bio, 14-day free trial."
+
+**Caption:** You're not overtrading because you "feel" like you traded too much today — there's an actual number where it starts. Here's the formula.
+
+**Hashtags:** #ForexTrading #TradingJournal #Overtrading #RiskManagement #TradingPsychology #DayTrading #ForexTraderTips #TradingTips #TradeJournal #ForexLife #TradingEducation #PropFirm #FundedTrader #TradingDiscipline #ForexCommunity #TradingStrategy #StockMarket #TradingMindset #Metatrader
