@@ -1,25 +1,19 @@
-# Marketing Copy Drafts — 2026-09-18
+# Marketing Copy — 2026-09-18
 
-## Feature announcement blurb — Automatic MT4/MT5 sync
+## 1. MT4/MT5 auto-sync (feature ad copy)
 
-**Your journal, filled in for you.**
+**Headline:** Stop journaling. Start reviewing.
 
-Connect an MT4 or MT5 account once, and MB_TradeLab_EA takes it from there — every closed trade and your real account balance land in your journal automatically, with no manual entry. Step away for a while and it catches up the moment you reconnect. Deposits and withdrawals show up labeled, never mistaken for a trade, so your growth numbers stay accurate.
+**Body:** Connect a live MT4 or MT5 account — including most prop firm platforms, which run on the same terminals — and every closed trade logs itself, with real risk % derived from your actual stop-loss distance, not a rough guess. Deposits and withdrawals sync straight from your broker too, labeled and never mistaken for a trade. Go offline for a while? The EA catches up the moment it reconnects. Nothing is installed on our side, and no credentials are ever shared with us.
 
-It's one less habit to maintain and one more reason your data can actually be trusted.
+**CTA:** Connect your account and stop typing in trades — start your 14-day free trial.
 
 ---
 
-## Email newsletter snippet — Trial reminder / re-engagement
+## 2. Multi-strategy analytics (feature ad copy)
 
-**Subject: Your trading data deserves a real system**
+**Headline:** Stop guessing which of your strategies actually works.
 
-Hey there,
+**Body:** Running more than one strategy? MB Trade Lab keeps each one in its own isolated journal — separate dashboard, separate win rate, net R:R, drawdown, and monthly heatmap — so results never blend together and quietly skew each other. Layer in profit factor, expectancy, risk-adjusted return, R-multiple distribution, and an automatic overtrading flag when your volume spikes above normal, and you get a strategy-by-strategy verdict instead of one blurry average.
 
-Spreadsheets and screenshots work for a while — until you're trying to figure out which session or pair is actually carrying your results, and the data's scattered across three places.
-
-MB Trade Lab keeps it in one place: a monthly edge heatmap, session and pair breakdowns, strategy-isolated dashboards, and — if you trade MT4/MT5 — trades that log themselves.
-
-Every plan starts with a 14-day free trial, no card required. See what your edge actually looks like when it's all in one view.
-
-[Start your free trial →]
+**CTA:** See exactly which strategy earns its place in your rotation — start your 14-day free trial, no card required.
