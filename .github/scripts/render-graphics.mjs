@@ -84,7 +84,7 @@ function templateList({ eyebrow, title, items = [], footer }, w, h) {
     ${eyebrow ? `<span class="eyebrow">${eyebrow}</span>` : ''}
     <h1>${title}</h1>
     <div>${rows}</div>
-    ${footer ? `<div class="footer">${renderRuns(footer)}</div>` : ''}
+    ${footer ? `<div class="footer">${renderRuns(footer.parts)}</div>` : ''}
   </div></body></html>`;
 }
 

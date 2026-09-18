@@ -10,6 +10,7 @@
 // supabase/sql/005_access_exemptions.sql, run once by a human in the
 // Supabase SQL Editor (that table has no API access by design).
 import { createClient } from '@supabase/supabase-js';
+import ws from 'ws';
 
 const SB_URL = 'https://sijfjwvvlfjhnhyvozka.supabase.co';
 const SB_ANON_KEY =
@@ -22,7 +23,11 @@ if (!email || !password) {
   process.exit(0);
 }
 
-const supabase = createClient(SB_URL, SB_ANON_KEY);
+// Node 20's runner has no native WebSocket, and supabase-js always spins up
+// a RealtimeClient in createClient() even though this script never uses
+// realtime subscriptions — so it needs an explicit transport or the import
+// throws before any REST/auth call is made.
+const supabase = createClient(SB_URL, SB_ANON_KEY, { realtime: { transport: ws } });
 
 async function ensureSignedIn() {
   const signIn = await supabase.auth.signInWithPassword({ email, password });
