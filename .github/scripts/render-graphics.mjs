@@ -161,7 +161,43 @@ function templateQuad({ title, items = [] }, w, h) {
   </div></body></html>`;
 }
 
-const TEMPLATES = { list: templateList, timeline: templateTimeline, 'stat-cards': templateStatCards, quad: templateQuad };
+// Embeds a real product screenshot inside a branded promo frame — eyebrow
+// badge, bold headline, the actual UI in a floating card, optional CTA
+// button. This is the "TradeZella ad" look: a real screenshot dressed up
+// with marketing copy around it, not a bare screenshot or invented art.
+async function templateFeatureCard({ eyebrow, title, subtitle, screenshot, cta }, w, h) {
+  let imgTag = '';
+  if (screenshot && (await exists(screenshot))) {
+    const buf = await readFile(screenshot);
+    const ext = path.extname(screenshot).slice(1) || 'png';
+    const mime = ext === 'webp' ? 'image/webp' : ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : 'image/png';
+    imgTag = `<img class="shot" src="data:${mime};base64,${buf.toString('base64')}">`;
+  }
+  return `<!DOCTYPE html><html><head><meta charset="utf-8">${FONT_LINK}<style>
+    ${baseStyles}
+    body { background: radial-gradient(circle at 15% 0%, #1a0f14 0%, ${PALETTE.bg} 50%); }
+    .wrap { width:${w}px; height:${h}px; padding:80px 70px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    h1 { font-size:54px; font-weight:900; line-height:1.15; margin:26px 0 14px; }
+    .subtitle { font-size:28px; color:${PALETTE.gray}; font-weight:500; margin-bottom:44px; max-width:820px; }
+    .card { background:#fff; border-radius:28px; padding:18px; box-shadow:0 40px 90px rgba(0,0,0,0.55); flex:1; display:flex; align-items:flex-start; overflow:hidden; width:100%; }
+    .shot { width:100%; border-radius:16px; display:block; object-fit:cover; object-position:top; max-height:100%; }
+    .cta { margin-top:44px; display:inline-block; background:${PALETTE.redGrad}; color:#fff; font-size:30px; font-weight:800; padding:22px 48px; border-radius:16px; }
+  </style></head><body><div class="wrap">
+    ${eyebrow ? `<span class="eyebrow">${eyebrow}</span>` : ''}
+    <h1>${title}</h1>
+    ${subtitle ? `<div class="subtitle">${subtitle}</div>` : ''}
+    <div class="card">${imgTag}</div>
+    ${cta ? `<div class="cta">${cta}</div>` : ''}
+  </div></body></html>`;
+}
+
+const TEMPLATES = {
+  list: templateList,
+  timeline: templateTimeline,
+  'stat-cards': templateStatCards,
+  quad: templateQuad,
+  'feature-card': templateFeatureCard,
+};
 
 async function watermark(imageBuffer) {
   if (!(await exists(logoPath))) return imageBuffer;
@@ -207,7 +243,7 @@ async function main() {
         continue;
       }
       const [w, h] = (spec.size || '1080x1350').split('x').map(Number);
-      const html = render(spec.data || {}, w, h);
+      const html = await render(spec.data || {}, w, h);
 
       const page = await browser.newPage({ viewport: { width: w, height: h } });
       await page.setContent(html, { waitUntil: 'networkidle' });
