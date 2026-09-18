@@ -33,12 +33,14 @@ jobs:
           done
 
       - name: Seed demo account with sample trades
+        continue-on-error: true
         env:
           DEMO_ACCOUNT_EMAIL: ${{ secrets.DEMO_ACCOUNT_EMAIL }}
           DEMO_ACCOUNT_PASSWORD: ${{ secrets.DEMO_ACCOUNT_PASSWORD }}
         run: node .github/scripts/seed-demo-account.mjs
 
       - name: Screenshot authenticated app views
+        continue-on-error: true
         env:
           DEMO_ACCOUNT_EMAIL: ${{ secrets.DEMO_ACCOUNT_EMAIL }}
           DEMO_ACCOUNT_PASSWORD: ${{ secrets.DEMO_ACCOUNT_PASSWORD }}
