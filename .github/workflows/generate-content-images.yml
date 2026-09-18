@@ -47,10 +47,8 @@ jobs:
             node .github/scripts/screenshot-app.mjs "${dir%/}"
           done
 
-      - name: Generate images from prompts
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: node .github/scripts/generate-images.mjs
+      - name: Render branded educational graphics
+        run: node .github/scripts/render-graphics.mjs
 
       - name: Commit generated images
         run: |
