@@ -1,0 +1,39 @@
+name: Generate Content Images
+
+on:
+  push:
+    branches:
+      - 'content-drafts/**'
+
+permissions:
+  contents: write
+
+jobs:
+  generate-images:
+    if: ${{ !contains(github.event.head_commit.message, '[skip-image-gen]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate images from prompts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node .github/scripts/generate-images.mjs
+
+      - name: Commit generated images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A -- 'content-drafts/**/graphics/*'
+          if git diff --cached --quiet; then
+            echo "No new images to commit"
+          else
+            git commit -m "chore: generate images for content drafts [skip-image-gen]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
