@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install sharp@0.33 playwright@1 @supabase/supabase-js@2
+          npm install sharp@0.33 playwright@1 @supabase/supabase-js@2 ws@8
           npx playwright install --with-deps chromium
 
       - name: Screenshot live site
