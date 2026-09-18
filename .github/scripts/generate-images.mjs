@@ -1,9 +1,11 @@
 // Reads content-drafts/*/image-prompts.json manifests and generates any
 // missing images via the OpenAI Images API, saving them into that draft's
 // graphics/ folder. Skips prompts whose output file already exists so
-// re-runs are cheap and idempotent.
+// re-runs are cheap and idempotent. Composites the site's real logo onto
+// every generated image so AI art doesn't ship unbranded.
 import { readdir, readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import path from 'node:path';
+import sharp from 'sharp';
 
 const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
@@ -12,6 +14,27 @@ if (!apiKey) {
 }
 
 const draftsDir = 'content-drafts';
+const logoPath = 'mb-logo.png';
+
+async function watermark(imageBuffer) {
+  if (!(await exists(logoPath))) return imageBuffer;
+  const base = sharp(imageBuffer);
+  const { width, height } = await base.metadata();
+  const logoWidth = Math.round((width || 1024) * 0.18);
+  const logo = await sharp(logoPath).resize({ width: logoWidth }).toBuffer();
+  const logoMeta = await sharp(logo).metadata();
+  const margin = Math.round((width || 1024) * 0.03);
+  return base
+    .composite([
+      {
+        input: logo,
+        left: (width || 1024) - logoWidth - margin,
+        top: (height || 1024) - (logoMeta.height || 0) - margin,
+      },
+    ])
+    .png()
+    .toBuffer();
+}
 
 async function exists(p) {
   try {
@@ -70,7 +93,8 @@ async function main() {
         console.error(`No image data returned for ${item.filename}`);
         continue;
       }
-      await writeFile(outPath, Buffer.from(b64, 'base64'));
+      const branded = await watermark(Buffer.from(b64, 'base64'));
+      await writeFile(outPath, branded);
       console.log(`Saved ${outPath}`);
     }
   }
