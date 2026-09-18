@@ -1,0 +1,20 @@
+[
+  {
+    "id": "post1",
+    "filename": "post1.png",
+    "prompt": "A sleek professional fintech dashboard scene rendered in a dark theme: a stylized abstract equity curve line glowing in purple and teal ascending across a deep navy-black background, subtle grid lines, soft glow effects, floating minimalist icons suggesting automated data sync (a small gear and a connection/sync arrow motif) near the curve. Clean, modern, high-end SaaS aesthetic, cinematic lighting, no readable text or numbers anywhere, no fabricated charts with specific data labels, no logos. Mood: precise, calm, trustworthy, technological.",
+    "size": "1024x1024"
+  },
+  {
+    "id": "post2",
+    "filename": "post2.png",
+    "prompt": "A professional dark-themed fintech illustration showing an abstract network connection between a trading terminal monitor silhouette and a cloud/journal icon, glowing teal and purple data particles flowing between them against a deep charcoal background, subtle circuit-like grid pattern, soft ambient glow, minimalist geometric style. No readable text, no numbers, no charts implying real performance results, no logos. Mood: seamless automation, modern, sophisticated.",
+    "size": "1024x1024"
+  },
+  {
+    "id": "post3",
+    "filename": "post3.png",
+    "prompt": "A minimalist dark-themed conceptual image representing focus and discipline in trading: a single glowing purple checkpoint/flag icon standing out among several faded, dimmed identical icons in a row, set against a deep navy background with soft gradient lighting and subtle abstract grid lines. Clean geometric vector-inspired style, no readable text, no numbers, no charts, no logos. Mood: reflective, disciplined, professional.",
+    "size": "1024x1024"
+  }
+]
